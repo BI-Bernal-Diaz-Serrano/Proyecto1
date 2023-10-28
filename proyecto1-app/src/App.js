@@ -25,14 +25,16 @@ function App() {
 
     return (
         <div className="container mt-5">
-            <h1 className="text-center mb-4">Grupo 15 Inteligencia de Negocios</h1>
+           <div className="navbar">
+                <h2>Grupo 15 Inteligencia de Negocios</h2>
+            </div>
             <div className="mb-3">
                 <input 
                     className="form-control"
                     type="text" 
                     value={frase}
                     onChange={(e) => setFrase(e.target.value)} 
-                    placeholder="Escribe una frase sobre la bebida"
+                    placeholder="Escribe una frase sobre algun objetivo de desarrollo sostenible"
                 />
             </div>
             <button className="btn btn-primary mb-3" onClick={handlePredict}>Clasificar</button>
