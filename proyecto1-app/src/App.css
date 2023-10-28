@@ -1,0 +1,23 @@
+body {
+  background-image: url('./Imagen.jpg');
+  background-size: cover; 
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  color: #fff; 
+}
+
+.container {
+  background-color: #fff; 
+  color: #000; 
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+}
+
+.container a {
+  color: #000;
+}
+
+.row-background {
+  background-color: white;
+}

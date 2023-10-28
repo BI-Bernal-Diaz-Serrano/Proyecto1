@@ -12,13 +12,14 @@ from nltk.corpus import stopwords
 from nltk.tokenize import word_tokenize
 from nltk.stem import WordNetLemmatizer
 from flask import Flask, request, jsonify
+from flask_cors import CORS
 
 nltk.download('punkt')
 nltk.download('stopwords')
 nltk.download('wordnet')
 
 app = Flask(__name__)
-
+CORS(app) 
 stop_words = set(stopwords.words('spanish'))
 lematizador = WordNetLemmatizer()
 
