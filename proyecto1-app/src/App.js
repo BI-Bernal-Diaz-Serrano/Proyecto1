@@ -6,6 +6,8 @@ import * as XLSX from 'xlsx';
 import ods3Image from './ods3.jpg';
 import ods4Image from './ods4.jpg';
 import ods5Image from './ods5.jpg';
+import hist from './Histograma.png';
+import metrica from './matriz.png';
 function App() {
     const [frase, setFrase] = useState('');
     const [prediction, setPrediction] = useState(null);
@@ -25,6 +27,15 @@ function App() {
         }
     };
 
+    const [stats, setStats] = useState(null);
+
+
+    const [showStats1, setShowStats1] = useState(false);
+
+    const handleStats1 = () => {
+        setShowStats1(!showStats1);
+    }
+   
     const handleFileUpload = async (e) => {
         const file = e.target.files[0];
         const reader = new FileReader();
@@ -38,7 +49,7 @@ function App() {
 
             const predictions = [];
             for (let row of items.slice(1)) {
-                const text = row[0];  
+                const text = row[0];
                 const response = await axios.post('http://localhost:5000/predict', { text });
                 predictions.push(response.data.prediction);
             }
@@ -61,7 +72,7 @@ function App() {
 
     return (
         <div className="container mt-5 app-container">
-        <div className="navbar">
+            <div className="navbar">
                 <h2>Grupo 15 Inteligencia de Negocios</h2>
             </div>
             <div className="mb-3">
@@ -79,7 +90,7 @@ function App() {
                 <button className="btn btn-secondary ml-2" onClick={handleDownload}>Descargar con Clasificaciones</button>
             </div>
             {prediction !== null && <p className="mb-4">Clasificacion: {prediction}</p>}
-            <hr></hr>
+            <hr/>
 
             <h2 className="text-center mb-4">Historial de Clasificaciones</h2>
             
@@ -95,7 +106,7 @@ function App() {
                 <option value="4">4</option>
                 <option value="5">5</option>
             </select>
-            <hr></hr>
+            <hr/>
 
             <table className="table table-striped">
                 <thead>
@@ -114,12 +125,12 @@ function App() {
                 </tbody>
             </table>
 
-            <hr></hr>
+            <hr/>
             <h1>Informacion de los ODS (3,4,5) </h1>
             <div className="row mb-4">
                 <div className="col-md-4">
                     <img 
-                        img src={ods3Image} alt="ODS 3" 
+                        src={ods3Image} alt="ODS 3" 
                         className="img-fluid" 
                         style={{ width: '300px', height: '300px' }} 
                     />
@@ -127,14 +138,14 @@ function App() {
                 <div className="col-md-8">
                     <h3>ODS 3: Salud y bienestar</h3>
                     <p>
-                    Garantizar una vida sana y promover el bienestar para todos en todas las edades es esencial para el desarrollo sostenible.
-                                   </p>
+                        Garantizar una vida sana y promover el bienestar para todos en todas las edades es esencial para el desarrollo sostenible.
+                    </p>
                 </div>
             </div>
             <div className="row mb-4">
                 <div className="col-md-4">
                     <img 
-                        img src={ods4Image} alt="ODS 4"
+                        src={ods4Image} alt="ODS 4"
                         className="img-fluid" 
                         style={{ width: '300px', height: '300px' }} 
                     />
@@ -142,14 +153,14 @@ function App() {
                 <div className="col-md-8">
                     <h3>ODS 4: Educación de calidad</h3>
                     <p>
-                    Garantizar una educación inclusiva, equitativa y de calidad y promover oportunidades de aprendizaje durante toda la vida para todos.
+                        Garantizar una educación inclusiva, equitativa y de calidad y promover oportunidades de aprendizaje durante toda la vida para todos.
                     </p>
                 </div>
             </div>
             <div className="row mb-4">
                 <div className="col-md-4">
                     <img 
-                        img src={ods5Image} alt="ODS 5"
+                        src={ods5Image} alt="ODS 5"
                         className="img-fluid" 
                         style={{ width: '300px', height: '300px' }} 
                     />
@@ -161,10 +172,28 @@ function App() {
                     </p>
                 </div>
             </div>
+            <hr/>
+            <h2 className="text-center mb-4">Estadísticas Descriptivas</h2>
+            <button className="btn btn-info mb-3" onClick={handleStats1}>Generar Estadísticas</button>
+            {showStats1 && (
+                <div>
+                    <p><strong>Media:</strong> 4.144968732234224</p>
+                    <p><strong>Mediana:</strong> 4.0</p>
+                    <p><strong>Desviación Estándar:</strong> 0.7881492026821049</p>
+                    <p><strong>Valor mínimo:</strong> 3</p>
+                    <p><strong>Valor máximo:</strong> 5</p>
+                    <p><strong>Número de valores únicos:</strong> 3</p>
+                    <p><strong>Moda:</strong> 5</p>
+                    <img src = {hist} alt="Histograma" style={{ width: '100%', marginTop: '20px' }} />
+
+                    <b>Matriz de confusion</b>
+
+                    <img src = {metrica} alt="Matriz" style={{ width: '100%', marginTop: '20px' }} />
+
+
+                </div>
+            )}
         </div>
-
-
-        
     );
 }
 

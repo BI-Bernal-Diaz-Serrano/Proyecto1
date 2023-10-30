@@ -36,7 +36,7 @@ def predict():
     data = request.get_json()
     text = data['text']
     prediction = pipeline.predict([text])
-    return jsonify({'prediction': str(prediction[0])})  # Convertimos la predicción a string por seguridad.
+    return jsonify({'prediction': str(prediction[0])})  
 
 if __name__ == '__main__':
     app.run(port=5000)
